@@ -1,0 +1,723 @@
+#0 X 1
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:116: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.chalkboardAndBar()` indirectly reads with synchronization from `this.privateNumbers.total`. Potentially races with unsynchronized write in method `GraphNumbers.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  114.   
+  115.           // init the scroll bar
+  116. >         updateHorzBar();
+  117.   
+  118.           JPanel innertemppanel = new JPanel();
+
+#1 X 2
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:321: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.checkWaiters()` writes to field `this.wait_count` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  319.           }
+  320.           // reduce the wait count by the number of waiters in this slot
+  321. >         wait_count -= h.numWaiters;
+  322.           return h;
+  323.       }
+
+#2 X 3
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:306: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.checkWaiters()` reads without synchronization from `this.goal`. Potentially races with write in method `BarrierSynchronizer.removeNode(...)`.
+ Reporting because this access may occur on a background thread.
+  304.       protected WaitSlot checkWaiters() {
+  305.           // have all threads reached either a meet or a wait?
+  306. >         if (wait_count + meet_count < goal) return null;
+  307.   
+  308.           // are there any waiters at all?
+
+#3 X 4
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:314: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.checkWaiters()` writes to field `this.waitSlotList` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  312.           WaitSlot h = waitSlotList;
+  313.           // move the wait list ahead to the next link
+  314. >         waitSlotList = h.next;
+  315.           synchronized (h) {
+  316.               // notify the threads waiting on this wait slot
+
+#4 X 4
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:309: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.checkWaiters()` reads without synchronization from `this.waitSlotList`. Potentially races with write in method `BarrierSynchronizer.removeNode(...)`.
+ Reporting because this access may occur on a background thread.
+  307.   
+  308.           // are there any waiters at all?
+  309. >         if (waitSlotList == null) return null;
+  310.   
+  311.           // there is a ready wait slot, wake those threads waiting on it
+
+#5 X 5
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:208: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.expandInterval(...)` reads without synchronization from `this.distribMin`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  206.       public void expandInterval(int min, int max) {
+  207.           // TODO: this will not work unless there is data already present
+  208. >         if (distribMin < min) min = distribMin;
+  209.           if (max < distribMin + distrib.length) max = distribMin + distrib.length;
+  210.   
+
+#6 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:209: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.expandInterval(...)` reads without synchronization from `this.distrib`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  207.           // TODO: this will not work unless there is data already present
+  208.           if (distribMin < min) min = distribMin;
+  209. >         if (max < distribMin + distrib.length) max = distribMin + distrib.length;
+  210.   
+  211.           int newsize = max - min + 1;
+
+#7 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:220: warning: Thread Safety Violation
+  Unprotected write. Non-private method `Distribution.expandInterval(...)` writes to field `this.distrib` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  218.           System.arraycopy(distrib, 0, newdistrib, distribMin - min, distrib.length);
+  219.   
+  220. >         distrib = newdistrib;
+  221.       }
+  222.   
+
+#8 X 7
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:395: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer$SynchEvent.fire()` indirectly writes to field `this.clock.eventQueue.freeLinks` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  393.   
+  394.                   // we have not been removed, we can reinsert the synch event
+  395. >                 clock.insertEvent(this, period);
+  396.               } catch (InterruptedException e) {
+  397.                   throw Util.unexpected(e);
+
+#9 X 7
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/RippleSynchronizer.java:112: warning: Thread Safety Violation
+  Unprotected write. Non-private method `RippleSynchronizer$NotifyEvent.fire()` indirectly writes to field `this.clock.eventQueue.freeLinks` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  110.                   if (delta < notifyPeriod)
+  111.                   {
+  112. >                     clock.insertEvent(this, delta);
+  113.                   } else
+  114.                   {
+
+#10 X 8
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:141: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SnifferMonitor$Mon.fireAfterReceive(...)` reads without synchronization from `this.bytes`. Potentially races with write in method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  139.               if (showReceived)
+  140.               {
+  141. >                 if (bytes.size() == 0)
+  142.                       startCycle = simulator.getClock().getCount();
+  143.                   if (Medium.isCorruptedByte(val))
+
+#11 X 9
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:156: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SnifferMonitor$Mon.fireAfterReceiveEnd(...)` writes to field `this.packetsReceived` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  154.               if (showReceived)
+  155.               {
+  156. >                 packetsReceived++;
+  157.                   synchronized (Terminal.class)
+  158.                   {
+
+#12 X 8
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:159: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SnifferMonitor$Mon.fireAfterReceiveEnd(...)` indirectly reads with synchronization from `this.bytes`. Potentially races with unsynchronized write in method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)`.
+ Reporting because this access may occur on a background thread.
+  157.                   synchronized (Terminal.class)
+  158.                   {
+  159. >                     StringBuffer buf = renderRxPacket();
+  160.                       if (Print)
+  161.                           Terminal.println(buf.toString());
+
+#13 X 8
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:165: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SnifferMonitor$Mon.fireAfterReceiveEnd(...)` writes to field `this.bytes` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  163.                           logfile(buf);
+  164.                   }
+  165. >                 bytes = new LinkedList<Character>();
+  166.               }
+  167.           }
+
+#14 X 8
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:109: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SnifferMonitor$Mon.fireBeforeTransmit(...)` reads without synchronization from `this.bytes`. Potentially races with write in method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  107.               if (showTransmitted)
+  108.               {
+  109. >                 if (bytes.size() == 0)
+  110.                       startCycle = simulator.getClock().getCount();
+  111.                   bytes.addLast(new Character((char) (0xff & val)));
+
+#15 X 10
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:122: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)` writes to field `this.packetsTransmitted` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  120.               if (showTransmitted)
+  121.               {
+  122. >                 packetsTransmitted++;
+  123.                   synchronized (Terminal.class)
+  124.                   {
+
+#16 X 8
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:125: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)` indirectly reads with synchronization from `this.bytes`. Potentially races with unsynchronized write in method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)`.
+ Reporting because this access may occur on a background thread.
+  123.                   synchronized (Terminal.class)
+  124.                   {
+  125. >                     StringBuffer buf = renderTxPacket();
+  126.                       if (Print)
+  127.                           Terminal.println(buf.toString());
+
+#17 X 8
+edu/ucla/cs/compilers/avrora/avrora/monitors/SnifferMonitor.java:131: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SnifferMonitor$Mon.fireBeforeTransmitEnd(...)` writes to field `this.bytes` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  129.                           logfile(buf);
+  130.                   }
+  131. >                 bytes = new LinkedList<Character>();
+  132.               }
+  133.           }
+
+#18  X 11
+edu/ucla/cs/compilers/avrora/avrora/arch/ArchitectureRegistry.java:84: warning: Thread Safety Violation
+  Read/Write race. Non-private method `ArchitectureRegistry.getArchitecture(...)` reads without synchronization from `arch.ArchitectureRegistry.archMap`. Potentially races with write in method `ArchitectureRegistry.addArchitectures()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  82.       {
+  83.           addArchitectures();
+  84. >         return (AbstractArchitecture) archMap.getObjectOfClass(s);
+  85.       }
+  86.   }
+
+#19 X 12
+edu/ucla/cs/compilers/avrora/avrora/sim/Simulation.java:181: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Simulation.getNumberOfNodes()` reads without synchronization from `this.num_nodes`. Potentially races with write in method `Simulation.removeNode(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  179.        */
+  180.       public int getNumberOfNodes() {
+  181. >         return num_nodes;
+  182.       }
+  183.   
+
+#20 X 13
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:231: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.getOptionsPanel()` indirectly reads without synchronization from `this.maxvalue`. Potentially races with write in method `GraphNumbers.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  229.           // allOptions.setLayout(new BorderLayout());
+  230.           allOptions.add(getZoomLevelOption());
+  231. >         allOptions.add(visualSetMaxValue());
+  232.           allOptions.add(new JPanel()); // filler so there is blank space
+  233.           return allOptions;
+
+#21 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:229: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.incrementDistrib(...)` reads without synchronization from `this.distrib`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  227.        */
+  228.       protected void incrementDistrib(int value) {
+  229. >         distrib[value - distribMin]++;
+  230.       }
+  231.   
+
+#22 X 4
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:264: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.insertWaiter(...)` indirectly writes to field `this.waitSlotList` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  262.       protected WaitSlot insertWaiter(SynchEvent event, long time) {
+  263.           // get a wait slot for this waiter
+  264. >         WaitSlot w = getWaitSlot(time);
+  265.   
+  266.           // now this thread is officially waiting
+
+#23 X 2
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:267: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.insertWaiter(...)` writes to field `this.wait_count` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  265.   
+  266.           // now this thread is officially waiting
+  267. >         wait_count++;
+  268.           // remember the wait slot this waiter is in
+  269.           event.waitSlot = w;
+
+#24 ?
+edu/ucla/cs/compilers/avrora/avrora/sim/Simulation.java:250: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Simulation.instantiateNodes()` reads without synchronization from `this.nodes.[_]`. Potentially races with write in method `Simulation.removeNode(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  248.           // instantiate all of the nodes (and create threads)
+  249.           for (int cntr = 0; cntr < nodes.length; cntr++) {
+  250. >             Node n = nodes[cntr];
+  251.               if (n == null) continue;
+  252.               n.instantiate(); // create the simulator and simulator thread
+
+#25 X
+edu/ucla/cs/compilers/avrora/avrora/sim/Simulation.java:249: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Simulation.instantiateNodes()` reads without synchronization from `this.nodes`. Potentially races with write in method `Simulation.createNode(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  247.       protected void instantiateNodes() {
+  248.           // instantiate all of the nodes (and create threads)
+  249. >         for (int cntr = 0; cntr < nodes.length; cntr++) {
+  250.               Node n = nodes[cntr];
+  251.               if (n == null) continue;
+
+#26 X 13
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:268: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GraphNumbers.internalUpdate()` writes to field `this.maxvalue` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  266.           privateNumbers.addAll(newNumbers);
+  267.           int max = privateNumbers.max();
+  268. >         if (max > maxvalue) maxvalue = max;
+  269.   
+  270.           // and update the horz scroll bar to reflect the new values
+
+#27 X
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:257: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.internalUpdate()` reads without synchronization from `this.publicNumbers`. Potentially races with write in method `GraphNumbers.internalUpdate()`.
+ Reporting because this access may occur on a background thread.
+  255.        */
+  256.       public boolean internalUpdate() {
+  257. >         Sequence newNumbers = publicNumbers;
+  258.           synchronized (this) {
+  259.               if (newNumbers.size() == 0) {
+
+#28 X
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:266: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GraphNumbers.internalUpdate()` indirectly writes to field `this.privateNumbers.currentFrag` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  264.   
+  265.           // add all the new numbers
+  266. >         privateNumbers.addAll(newNumbers);
+  267.           int max = privateNumbers.max();
+  268.           if (max > maxvalue) maxvalue = max;
+
+#29 X 1
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:271: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.internalUpdate()` indirectly reads with synchronization from `this.privateNumbers.total`. Potentially races with unsynchronized write in method `GraphNumbers.internalUpdate()`.
+ Reporting because this access may occur on a background thread.
+  269.   
+  270.           // and update the horz scroll bar to reflect the new values
+  271. >         updateHorzBar();
+  272.           return true;
+  273.       }
+
+#30
+edu/ucla/cs/compilers/avrora/avrora/sim/Simulation.java:315: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Simulation.isPaused()` reads without synchronization from `this.paused`. Potentially races with write in method `Simulation.stop()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  313.        */
+  314.       public boolean isPaused() {
+  315. >         return paused;
+  316.       }
+  317.   
+
+#31
+edu/ucla/cs/compilers/avrora/avrora/sim/Simulation.java:324: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Simulation.isRunning()` reads without synchronization from `this.running`. Potentially races with write in method `Simulation.stop()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  322.        */
+  323.       public boolean isRunning() {
+  324. >         return running;
+  325.       }
+  326.   
+
+#32
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphEvents.java:425: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphEvents.paint(...)` indirectly reads without synchronization from `this.privateNumbers.[_].vec`. Potentially races with write in method `GraphEvents.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  423.               } else if ((int) (double) panelDimen.width
+  424.                       / stepsize < privateNumbers[j]
+  425. >                             .get(privateNumbers[j].size() - 1))
+  426.               {
+  427.                   endingvalue = startingvalue
+
+#33
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphEvents.java:420: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphEvents.paint(...)` indirectly reads without synchronization from `this.privateNumbers.[_].current`. Potentially races with write in method `GraphEvents.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  418.               // ending value is size of panel or end of list, whichever is less
+  419.               int endingvalue;
+  420. >             if (privateNumbers[j].size() == 0)
+  421.               {
+  422.                   endingvalue = 0;
+
+#34 X 13
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:298: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.paint(...)` indirectly reads without synchronization from `this.maxvalue`. Potentially races with write in method `GraphNumbers.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  296.   
+  297.           // draw the value scale (vertical axis)
+  298. >         drawValueScale(panelDimen, g);
+  299.   
+  300.           int height = panelDimen.height - timeScale.height;
+
+#35 X 14
+edu/ucla/cs/compilers/avrora/avrora/gui/SimTimeEvents.java:101: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SimTimeEvents$PauseEvent.pause()` writes to field `this.ispaused` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+   99.           public void pause()
+  100.           {
+  101. >             ispaused = true;
+  102.               // TODO: fix implementation of pause
+  103.               // simpleAir.insertEvent((Simulator.Event) this, new
+
+#36 X 15
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:148: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.print(...)` reads without synchronization from `this.countMinimum`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  146.   
+  147.           printer.print("\n Statistics: ");
+  148. >         printer.print("\n   Minimum: " + observedMinimum + ", " + countMinimum + " occurences of min.");
+  149.           printer.print("\n   Maximum: " + observedMaximum + ", " + countMaximum + " occurences of max.");
+  150.           printer.print("\n   Mean: " + mean + ", Median: " + median + '\n');
+
+#37 X 16
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:150: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.print(...)` reads without synchronization from `this.mean`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  148.           printer.print("\n   Minimum: " + observedMinimum + ", " + countMinimum + " occurences of min.");
+  149.           printer.print("\n   Maximum: " + observedMaximum + ", " + countMaximum + " occurences of max.");
+  150. >         printer.print("\n   Mean: " + mean + ", Median: " + median + '\n');
+  151.   
+  152.           if (distribname != null) {
+
+#38 X 17
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:144: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.print(...)` reads without synchronization from `this.accumulation`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  142.           }
+  143.           if (cumulname != null) {
+  144. >             printer.print("   " + cumulname + ": " + accumulation);
+  145.           }
+  146.   
+
+#39 X 18
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:141: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.print(...)` reads without synchronization from `this.total`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  139.   
+  140.           if (totalname != null) {
+  141. >             printer.print("   " + totalname + ": " + total);
+  142.           }
+  143.           if (cumulname != null) {
+
+#40 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:154: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.print(...)` reads without synchronization from `this.distrib`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  152.           if (distribname != null) {
+  153.               printer.print("\n Distribution: ");
+  154. >             printDistribution(printer, distribMin, distrib);
+  155.           }
+  156.       }
+
+#41 X 7
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:149: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.print(...)` reads without synchronization from `this.countMaximum`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  147.           printer.print("\n Statistics: ");
+  148.           printer.print("\n   Minimum: " + observedMinimum + ", " + countMinimum + " occurences of min.");
+  149. >         printer.print("\n   Maximum: " + observedMaximum + ", " + countMaximum + " occurences of max.");
+  150.           printer.print("\n   Mean: " + mean + ", Median: " + median + '\n');
+  151.   
+
+#42 X 5
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:280: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.process()` reads without synchronization from `this.distribMin`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  278.               mid = mid - distrib[cntr];
+  279.               if (mid < 0) {
+  280. >                 median = cntr + distribMin;
+  281.                   break;
+  282.               }
+
+#43 ? 19
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:278: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.process()` reads without synchronization from `this.distrib.[_]`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  276.           median = observedMinimum - 1;
+  277.           for (int cntr = 0; cntr < distrib.length; cntr++) {
+  278. >             mid = mid - distrib[cntr];
+  279.               if (mid < 0) {
+  280.                   median = cntr + distribMin;
+
+#44 X 17
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:268: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.process()` indirectly reads without synchronization from `this.accumulation`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  266.       @Override
+  267.       public void process() {
+  268. >         super.process();
+  269.           int mid = total / 2;
+  270.           if ((distrib == null)) {
+
+#45 X 18
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:274: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.process()` reads without synchronization from `this.observedMinimum`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  272.               return;
+  273.           }
+  274. >         if (mid == 0) median = observedMinimum;
+  275.   
+  276.           median = observedMinimum - 1;
+
+#46 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:270: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.process()` reads without synchronization from `this.distrib`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  268.           super.process();
+  269.           int mid = total / 2;
+  270. >         if ((distrib == null)) {
+  271.               median = 0;
+  272.               return;
+
+#47 X 19
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:110: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SerialLogger.receiveFrame(...)` writes to field `this.inSync` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  108.                           // sync byte following escape is an error, resync
+  109.                           buf = new String("UART: Unexpected sync byte");
+  110. >                         inSync = false;
+  111.                       } else
+  112.                       {
+
+#48 X 20
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:98: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SerialLogger.receiveFrame(...)` reads without synchronization from `this.count`. Potentially races with write in method `SerialLogger.receiveFrame(...)`.
+ Reporting because this access may occur on a background thread.
+   96.           } else
+   97.           {
+   98. >             if (count >= MTU)
+   99.               {
+  100.                   buf = new String("UART: Packet to long");
+
+#49 X 21
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:104: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SerialLogger.receiveFrame(...)` reads without synchronization from `this.escaped`. Potentially races with write in method `SerialLogger.receiveFrame(...)`.
+ Reporting because this access may occur on a background thread.
+  102.               } else
+  103.               {
+  104. >                 if (escaped)
+  105.                   {
+  106.                       if (b == SYNC_BYTE)
+
+#50 ?  22
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:128: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SerialLogger.receiveFrame(...)` reads without synchronization from `this.receiveBuffer.[_]`. Potentially races with write in method `SerialLogger.receiveFrame(...)`.
+ Reporting because this access may occur on a background thread.
+  126.                       } else
+  127.                       {
+  128. >                         int readCrc = (receiveBuffer[count - 2] & 0xff)
+  129.                                   | (receiveBuffer[count - 1] & 0xff) << 8;
+  130.                           int computedCrc = calc(receiveBuffer, count - 2);
+
+#51 X 20
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:114: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SerialLogger.receiveFrame(...)` writes to field `this.count` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  112.                       {
+  113.                           b ^= 0x20;
+  114. >                         receiveBuffer[count++] = b;
+  115.                           escaped = false;
+  116.                       }
+
+#52 X 19
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:88: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SerialLogger.receiveFrame(...)` reads without synchronization from `this.inSync`. Potentially races with write in method `SerialLogger.receiveFrame(...)`.
+ Reporting because this access may occur on a background thread.
+  86.           byte b = (byte) frame.value;
+  87.   
+  88. >         if (!inSync)
+  89.           {
+  90.               if (b == SYNC_BYTE)
+
+#53 X 21
+edu/ucla/cs/compilers/avrora/avrora/sim/platform/SerialLogger.java:115: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SerialLogger.receiveFrame(...)` writes to field `this.escaped` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  113.                           b ^= 0x20;
+  114.                           receiveBuffer[count++] = b;
+  115. >                         escaped = false;
+  116.                       }
+  117.                   } else if (b == ESCAPE_BYTE)
+
+#54 X 5
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:238: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.recomputeMaxDistrib(...)` reads without synchronization from `this.distribMin`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  236.        */
+  237.       protected void recomputeMaxDistrib(int newMax) {
+  238. >         int newsize = 1 + newMax - distribMin;
+  239.           int[] newdistrib = new int[newsize];
+  240.   
+
+#55 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:245: warning: Thread Safety Violation
+  Unprotected write. Non-private method `Distribution.recomputeMaxDistrib(...)` writes to field `this.distrib` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  243.   
+  244.           newdistrib[newsize - 1] = 1;
+  245. >         distrib = newdistrib;
+  246.       }
+  247.   
+
+#56 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:242: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.recomputeMaxDistrib(...)` reads without synchronization from `this.distrib`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  240.   
+  241.           // copy the old data to the new array
+  242. >         System.arraycopy(distrib, 0, newdistrib, 0, distrib.length);
+  243.   
+  244.           newdistrib[newsize - 1] = 1;
+
+#57 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:255: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.recomputeMinDistrib(...)` reads without synchronization from `this.distrib`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  253.       protected void recomputeMinDistrib(int newMin) {
+  254.           int mindiff = distribMin - newMin;
+  255. >         int newsize = mindiff + distrib.length;
+  256.           int[] newdistrib = new int[newsize];
+  257.   
+
+#58 X 5
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:254: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Distribution.recomputeMinDistrib(...)` reads without synchronization from `this.distribMin`. Potentially races with write in method `Distribution.record(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  252.        */
+  253.       protected void recomputeMinDistrib(int newMin) {
+  254. >         int mindiff = distribMin - newMin;
+  255.           int newsize = mindiff + distrib.length;
+  256.           int[] newdistrib = new int[newsize];
+
+#59 X 6
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:262: warning: Thread Safety Violation
+  Unprotected write. Non-private method `Distribution.recomputeMinDistrib(...)` writes to field `this.distrib` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  260.   
+  261.           newdistrib[0] = 1;
+  262. >         distrib = newdistrib;
+  263.           distribMin = newMin;
+  264.       }
+
+#60 X 5
+edu/ucla/cs/compilers/avrora/cck/stat/Distribution.java:263: warning: Thread Safety Violation
+  Unprotected write. Non-private method `Distribution.recomputeMinDistrib(...)` writes to field `this.distribMin` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  261.           newdistrib[0] = 1;
+  262.           distrib = newdistrib;
+  263. >         distribMin = newMin;
+  264.       }
+  265.   
+
+#61 X 2
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:214: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.removeNode(...)` reads with synchronization from `this.wait_count`. Potentially races with unsynchronized write in method `BarrierSynchronizer.checkWaiters()`.
+ Reporting because this access may occur on a background thread.
+  212.                   // and to decrement the number of waiters in that slot
+  213.                   e.waitSlot.numWaiters--;
+  214. >                 wait_count--;
+  215.               }
+  216.               threadMap.remove(st);
+
+#62 X 4
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:209: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.removeNode(...)` indirectly reads with synchronization from `this.waitSlotList`. Potentially races with unsynchronized write in method `BarrierSynchronizer.checkWaiters()`.
+ Reporting because this access may occur on a background thread.
+  207.               if (e.met) meet_count--;
+  208.   
+  209. >             if (stillWaiting(e.waitSlot)) {
+  210.                   // if this wait slot hasn't happened yet, we need to decrement
+  211.                   // wait_count
+
+#63 X 23
+edu/ucla/cs/compilers/avrora/cck/test/TestEngine.java:140: warning: Thread Safety Violation
+  Unprotected write. Non-private method `TestEngine.runTests(...)` indirectly writes to field `this.currentTest` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  138.   
+  139.           // initialize the lists of tests and fields
+  140. >         initTests(fnames);
+  141.   
+  142.           // run all the test cases
+
+#64 X 3
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:84: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.signalOthers()` indirectly reads without synchronization from `this.goal`. Potentially races with write in method `BarrierSynchronizer.removeNode(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  82.   
+  83.           // check for any waiters that need to be woken
+  84. >         checkWaiters();
+  85.   
+  86.           // have we reached the goal?
+
+#65 X 24
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:92: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.signalOthers()` writes to field `this.meet_count` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  90.               // last thread to arrive sets the count to zero and notifies all
+  91.               // other threads
+  92. >             meet_count = 0;
+  93.               wait_count = 0;
+  94.               // perform the action that should be run while all threads are
+
+#66 X 1
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:391: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.stateChanged(...)` indirectly reads with synchronization from `this.privateNumbers.total`. Potentially races with unsynchronized write in method `GraphNumbers.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  389.       public void stateChanged(ChangeEvent e) {
+  390.           if (e.getSource() == stepsizeVisual) {
+  391. >             adjustZoom();
+  392.               repaint();
+  393.           } else if (e.getSource() == maxvalueVisual) {
+
+#67 X 13
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:394: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GraphNumbers.stateChanged(...)` writes to field `this.maxvalue` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  392.               repaint();
+  393.           } else if (e.getSource() == maxvalueVisual) {
+  394. >             maxvalue = ((Integer) maxvalueVisual.getValue()).intValue();
+  395.               repaint();
+  396.           }
+
+#68 X 4
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:327: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.stillWaiting(...)` reads without synchronization from `this.waitSlotList`. Potentially races with write in method `BarrierSynchronizer.removeNode(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  325.       protected boolean stillWaiting(WaitSlot w) {
+  326.           if (w == null) return false;
+  327. >         for (WaitSlot h = waitSlotList; h != null; h = h.next)
+  328.               if (h == w) return true;
+  329.           return false;
+
+#69 X 1
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:143: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.updateHorzBar()` indirectly reads with synchronization from `this.privateNumbers.total`. Potentially races with unsynchronized write in method `GraphNumbers.internalUpdate()`.
+ Reporting because this access may occur on a background thread.
+  141.   
+  142.           int width = this.getSize().width;
+  143. >         long maxtime = privateNumbers.size();
+  144.           int newExtent = timeScale.getExtent(width, maxtime);
+  145.           int size = timeScale.getScrollBarSize(maxtime);
+
+#70 X 13
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:200: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.visualSetMaxValue()` indirectly reads without synchronization from `this.maxvalue`. Potentially races with write in method `GraphNumbers.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  198.       public JPanel visualSetMaxValue() {
+  199.           if (maxvalueVisual == null) {
+  200. >             createmaxvalueVisual();
+  201.           }
+  202.           JPanel returnthis = new JPanel();
+
+#71 X 4
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:241: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.waitForNeighbors(...)` indirectly reads with synchronization from `this.waitSlotList`. Potentially races with unsynchronized write in method `BarrierSynchronizer.checkWaiters()`.
+ Reporting because this access may occur on a background thread.
+  239.           synchronized (condition) {
+  240.               // allocate a wait slot for this thread
+  241. >             w = insertWaiter(event, time);
+  242.               // check for other waiters and wake them if necessary
+  243.               WaitSlot h = checkWaiters();
+
+Found 72 issues
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 72

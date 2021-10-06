@@ -1,0 +1,50 @@
+
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:88: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` indirectly reads without synchronization from `state.server.scene.infiniteInstanceList.instances.[_].geometry.builtAccel`. Potentially races with write in method `IrradianceCacheGIEngine.getIrradiance(...)`.
+ Reporting because this access may occur on a background thread.
+  86.               onb.transform(w);
+  87.               Ray r = new Ray(state.getPoint(), w);
+  88. >             ShadingState temp = state.traceFinalGather(r, 0);
+  89.               return temp != null ? getGlobalRadiance(temp).copy().mul((float) Math.PI) : Color.BLACK;
+  90.           }
+
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:101: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` reads without synchronization from `this.samples`. Potentially races with write in method `IrradianceCacheGIEngine.init(...)`.
+ Reporting because this access may occur on a background thread.
+   99.               float minR = Float.POSITIVE_INFINITY;
+  100.               Vector3 w = new Vector3();
+  101. >             for (int i = 0; i < samples; i++) {
+  102.                   float xi = (float) state.getRandom(i, 0, samples);
+  103.                   float xj = (float) state.getRandom(i, 1, samples);
+
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:119: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` indirectly reads without synchronization from `this.globalPhotonMap`. Potentially races with write in method `IrradianceCacheGIEngine.init(...)`.
+ Reporting because this access may occur on a background thread.
+  117.                       invR += 1.0f / r.getMax();
+  118.                       temp.getInstance().prepareShadingState(temp);
+  119. >                     irr.add(getGlobalRadiance(temp));
+  120.                   }
+  121.               }
+
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:114: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` indirectly reads without synchronization from `state.server.scene.infiniteInstanceList.instances.[_].geometry.accel`. Potentially races with write in method `IrradianceCacheGIEngine.getIrradiance(...)`.
+ Reporting because this access may occur on a background thread.
+  112.                   onb.transform(w);
+  113.                   Ray r = new Ray(state.getPoint(), w);
+  114. >                 ShadingState temp = state.traceFinalGather(r, i);
+  115.                   if (temp != null) {
+  116.                       minR = Math.min(r.getMax(), minR);
+
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:124: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` reads without synchronization from `this.rwl`. Potentially races with write in method `IrradianceCacheGIEngine.init(...)`.
+ Reporting because this access may occur on a background thread.
+  122.               irr.mul((float) Math.PI / samples);
+  123.               invR = samples / invR;
+  124. >             rwl.writeLock().lock();
+  125.               insert(state.getPoint(), state.getNormal(), invR, irr);
+  126.               rwl.writeLock().unlock();
+
+
+Found 45 issues (console output truncated to 5, see '/home/ruby/git/cibse-eval/sunflow/src/infer-out/report.txt' for the full list)
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 45

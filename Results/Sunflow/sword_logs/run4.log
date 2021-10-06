@@ -1,0 +1,24 @@
+Call Graph Construction Time: 30518
+INITIAL DETECTION >>>
+!!!!!!!!!!!!!!!!!!!!!!!!!8Run : Node: <src-method: < Source, Lorg/sunflow/core/LightServer/calculatePhotons(Lorg/sunflow/core/PhotonStore;Ljava/lang/String;ILorg/sunflow/core/Options;)Z/<anonymous subclass of java.lang.Object>$1, run()V >> Context: Everywhere
+cg node is in loop: Node: <src-method: < Source, Lorg/sunflow/core/LightServer, calculatePhotons(Lorg/sunflow/core/PhotonStore;Ljava/lang/String;ILorg/sunflow/core/Options;)Z >> Context: Everywhere
+Join : Node: <src-method: < Source, Lorg/sunflow/core/LightServer/calculatePhotons(Lorg/sunflow/core/PhotonStore;Ljava/lang/String;ILorg/sunflow/core/Options;)Z/<anonymous subclass of java.lang.Object>$1, run()V >> Context: Everywhere
+mapOfStartNode =========================
+Main thread created by org/sunflow/Benchmark.main (line 34)
+Child thread created by org/sunflow/core/LightServer.calculatePhotons (line 177)
+Child thread created by org/sunflow/core/LightServer.calculatePhotons (line 177)
+mapOfJoinNode =========================
+Child thread joined to org/sunflow/core/LightServer.calculatePhotons (line 181)
+Child thread joined to org/sunflow/core/LightServer.calculatePhotons (line 181)
+
+-----race detection start
+-----find shared variables
+-----remove local nodes
+-----perform race detection with Fork-Join
+-----deadlocks detection start
+Total Race Detection Time: 343
+Total Deadlock Detection Time: 10
+DETECTION FINISHED
+-----------ALL BUGGY MEMORY ACCESSES: 57
+Total Bugs: 75
+Total Detection Time: 1568

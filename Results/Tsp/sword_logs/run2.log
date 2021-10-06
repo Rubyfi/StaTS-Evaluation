@@ -1,0 +1,24 @@
+Call Graph Construction Time: 3229
+INITIAL DETECTION >>>
+!!!!!!!!!!!!!!!!!!!!!!!!!8Run : Node: <src-method: < Source, LTspSolver, run()V >> Context: Everywhere
+cg node is in loop: Node: <src-method: < Source, LTsp, main([Ljava/lang/String;)V >> Context: Everywhere
+Join : Node: <src-method: < Source, LTspSolver, run()V >> Context: Everywhere
+mapOfStartNode =========================
+Child thread created by Tsp.main (line 79)
+Main thread created by Tsp.main (line 29)
+Child thread created by Tsp.main (line 79)
+mapOfJoinNode =========================
+Child thread joined to Tsp.main (line 85)
+Child thread joined to Tsp.main (line 85)
+
+-----race detection start
+-----find shared variables
+-----remove local nodes
+-----perform race detection with Fork-Join
+-----deadlocks detection start
+Total Race Detection Time: 105
+Total Deadlock Detection Time: 11
+DETECTION FINISHED
+-----------ALL BUGGY MEMORY ACCESSES: 67
+Total Bugs: 184
+Total Detection Time: 1131

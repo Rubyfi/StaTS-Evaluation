@@ -1,0 +1,50 @@
+
+weblech/spider/Spider.java:103: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.isRunning()` reads without synchronization from `this.running`. Potentially races with write in method `Spider.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  101.       public boolean isRunning()
+  102.       {
+  103. >         return running == 0;
+  104.       }
+  105.   
+
+weblech/spider/Spider.java:196: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` reads without synchronization from `this.urlsDownloading`. Potentially races with write in method `Spider.readCheckpoint()`.
+ Reporting because this access may occur on a background thread.
+  194.   					break;
+  195.               }
+  196. >             synchronized(urlsDownloading)
+  197.               {
+  198.                   urlsDownloading.add(nextURL);
+
+weblech/spider/Spider.java:168: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` indirectly reads without synchronization from `this.lastCheckpoint`. Potentially races with write in method `Spider.run()`.
+ Reporting because this access may occur on a background thread.
+  166.           while((queueSize() > 0 || downloadsInProgress > 0) && quit == false)
+  167.           {
+  168. >             checkpointIfNeeded();
+  169.               if(queueSize() == 0 && downloadsInProgress > 0)
+  170.               {
+
+weblech/spider/Spider.java:166: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` reads without synchronization from `this.downloadsInProgress`. Potentially races with write in method `Spider.run()`.
+ Reporting because this access may occur on a background thread.
+  164.   
+  165.   	    System.err.println("queueSize = "+queueSize());
+  166. >         while((queueSize() > 0 || downloadsInProgress > 0) && quit == false)
+  167.           {
+  168.               checkpointIfNeeded();
+
+weblech/spider/Spider.java:206: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` indirectly reads without synchronization from `this.queue`. Potentially races with write in method `Spider.readCheckpoint()`.
+ Reporting because this access may occur on a background thread.
+  204.                   urlsDownloading.remove(nextURL);
+  205.               }
+  206. >             List newURLs = downloadURL(nextURL, urlGetter, htmlParser);
+  207.   
+  208.               newURLs = filterURLs(newURLs);
+
+
+Found 8 issues (console output truncated to 5, see '/home/ruby/git/cibse-eval/petablox-bench/weblech-0.0.3/src/infer-out/report.txt' for the full list)
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 8

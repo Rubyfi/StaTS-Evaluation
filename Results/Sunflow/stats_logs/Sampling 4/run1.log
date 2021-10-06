@@ -1,0 +1,144 @@
+================================================================================
+DATA RACE ANALYSIS FOR 'sunflow':
+  CLASS WITH MAIN METHOD: org.sunflow.Benchmark
+  SAMPLING STRATEGY: LIMIT TO 4
+  CONFLICT CONDITION: EXACT
+  TIME: 14107599ms
+  DETECTED RACES: [9]
+    org.sunflow.core.Scene.bakingPrimitives
+    org.sunflow.core.Scene.bakingAccel
+    org.sunflow.image.Color.g
+    org.sunflow.image.Color.b
+    org.sunflow.image.Color.r
+    array access
+    array access
+    array access
+    array access
+  INVOVLED STATEMENTS: [34]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[209:30,209:41]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:117,208:128]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:21,208:32]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:55,208:66]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:179,208:190]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[178:16,178:27]
+    org.sunflow.core.Scene.java[171:12,171:28]
+    org.sunflow.core.Scene.java[162:12,162:28]
+    org.sunflow.core.Scene.java[355:8,355:24]
+    org.sunflow.core.Scene.java[229:8,229:19]
+    org.sunflow.core.Scene.java[356:8,356:19]
+    org.sunflow.image.writers.TGABitmapWriter.java[38:16,38:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[39:16,39:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[37:16,37:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[40:16,40:36]
+    org.sunflow.image.writers.HDRBitmapWriter.java[34:16,34:27]
+    org.sunflow.image.writers.IGIBitmapWriter.java[39:16,39:30]
+    org.sunflow.image.writers.IGIBitmapWriter.java[40:16,40:30]
+    org.sunflow.image.writers.IGIBitmapWriter.java[38:16,38:30]
+    org.sunflow.image.Color.java[202:45,202:46]
+    org.sunflow.image.Color.java[206:55,206:56]
+    org.sunflow.image.Color.java[211:13,211:16]
+    org.sunflow.image.Color.java[211:8,211:9]
+    org.sunflow.image.Color.java[279:8,279:9]
+    org.sunflow.image.Color.java[206:78,206:79]
+    org.sunflow.image.Color.java[212:13,212:16]
+    org.sunflow.image.Color.java[202:63,202:64]
+    org.sunflow.image.Color.java[280:8,280:9]
+    org.sunflow.image.Color.java[212:8,212:9]
+    org.sunflow.image.Color.java[202:27,202:28]
+    org.sunflow.image.Color.java[206:32,206:33]
+    org.sunflow.image.Color.java[210:13,210:16]
+    org.sunflow.image.Color.java[210:8,210:9]
+    org.sunflow.image.Color.java[278:8,278:9]
+================================================================================
+
+================================================================================
+DATA RACE ANALYSIS FOR 'sunflow':
+  CLASS WITH MAIN METHOD: org.sunflow.Benchmark
+  SAMPLING STRATEGY: LIMIT TO 4
+  CONFLICT CONDITION: FUZZY
+  TIME: 14107599ms
+  DETECTED RACES: [12]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.Sample.next
+    org.sunflow.core.gi.IrradianceCacheGIEngine.Node.first
+    org.sunflow.image.Color.b
+    org.sunflow.image.Color.r
+    org.sunflow.image.Color.g
+    org.sunflow.core.Scene.bakingPrimitives
+    org.sunflow.core.Scene.bakingAccel
+    array access
+    array access
+    array access
+    array access
+    array access
+  INVOVLED STATEMENTS: [69]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[192:50,192:56]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[155:8,155:14]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[192:28,192:33]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[156:8,156:18]
+    org.sunflow.image.Color.java[230:18,230:21]
+    org.sunflow.image.Color.java[212:8,212:9]
+    org.sunflow.image.Color.java[280:8,280:9]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:55,208:66]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:21,208:32]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:179,208:190]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[209:30,209:41]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[208:117,208:128]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[149:20,149:36]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[178:16,178:27]
+    org.sunflow.image.Color.java[228:18,228:21]
+    org.sunflow.image.Color.java[278:8,278:9]
+    org.sunflow.image.Color.java[210:8,210:9]
+    org.sunflow.image.Color.java[229:18,229:21]
+    org.sunflow.image.Color.java[211:8,211:9]
+    org.sunflow.image.Color.java[279:8,279:9]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[155:17,155:27]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[144:20,144:36]
+    org.sunflow.core.gi.IrradianceCacheGIEngine.java[151:23,151:39]
+    org.sunflow.core.Scene.java[171:12,171:28]
+    org.sunflow.core.Scene.java[162:12,162:28]
+    org.sunflow.core.Scene.java[355:8,355:24]
+    org.sunflow.core.Scene.java[229:8,229:19]
+    org.sunflow.core.Scene.java[356:8,356:19]
+    org.sunflow.image.Color.java[206:78,206:79]
+    org.sunflow.image.Color.java[212:13,212:16]
+    org.sunflow.image.Color.java[202:63,202:64]
+    org.sunflow.image.Color.java[361:37,361:41]
+    org.sunflow.image.Color.java[291:21,291:24]
+    org.sunflow.image.Color.java[361:21,361:25]
+    org.sunflow.image.Color.java[352:25,352:28]
+    org.sunflow.image.Color.java[352:45,352:49]
+    org.sunflow.image.Color.java[352:39,352:42]
+    org.sunflow.image.Color.java[352:32,352:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[38:16,38:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[39:16,39:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[37:16,37:36]
+    org.sunflow.image.writers.TGABitmapWriter.java[40:16,40:36]
+    org.sunflow.image.writers.HDRBitmapWriter.java[34:16,34:27]
+    org.sunflow.image.writers.IGIBitmapWriter.java[39:16,39:30]
+    org.sunflow.image.writers.IGIBitmapWriter.java[40:16,40:30]
+    org.sunflow.image.writers.IGIBitmapWriter.java[38:16,38:30]
+    org.sunflow.image.Color.java[211:13,211:16]
+    org.sunflow.image.Color.java[357:21,357:25]
+    org.sunflow.image.Color.java[357:37,357:41]
+    org.sunflow.image.Color.java[289:21,289:24]
+    org.sunflow.image.Color.java[359:37,359:41]
+    org.sunflow.image.Color.java[359:21,359:25]
+    org.sunflow.image.Color.java[290:21,290:24]
+    org.sunflow.image.Color.java[351:25,351:28]
+    org.sunflow.image.Color.java[351:32,351:36]
+    org.sunflow.image.Color.java[351:39,351:42]
+    org.sunflow.image.Color.java[351:45,351:49]
+    org.sunflow.image.Color.java[350:25,350:28]
+    org.sunflow.image.Color.java[350:45,350:49]
+    org.sunflow.image.Color.java[350:32,350:36]
+    org.sunflow.image.Color.java[350:39,350:42]
+    org.sunflow.image.Color.java[202:45,202:46]
+    org.sunflow.image.Color.java[206:55,206:56]
+    org.sunflow.image.Color.java[210:13,210:16]
+    org.sunflow.image.Color.java[202:27,202:28]
+    org.sunflow.image.Color.java[206:32,206:33]
+    org.sunflow.image.Color.java[229:8,229:9]
+    org.sunflow.image.Color.java[230:8,230:9]
+    org.sunflow.image.Color.java[228:8,228:9]
+================================================================================
+

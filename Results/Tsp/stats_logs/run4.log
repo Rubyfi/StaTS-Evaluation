@@ -1,0 +1,104 @@
+================================================================================
+DATA RACE ANALYSIS FOR 'tsp':
+  CLASS WITH MAIN METHOD: Tsp
+  SAMPLING STRATEGY: FULL ANALYSIS
+  CONFLICT CONDITION: EXACT
+  TIME: 443ms
+  DETECTED RACES: [3]
+    TspSolver.MinTourLen
+    TspSolver.PrioQLast
+    array access
+  INVOVLED STATEMENTS: [21]
+    TspSolver.java[170:28,170:38]
+    TspSolver.java[115:2,115:12]
+    TspSolver.java[501:96,501:106]
+    TspSolver.java[526:26,526:36]
+    TspSolver.java[343:69,343:79]
+    TspSolver.java[375:23,375:33]
+    TspSolver.java[106:53,106:63]
+    TspSolver.java[537:26,537:36]
+    TspSolver.java[303:38,303:48]
+    TspSolver.java[104:13,104:23]
+    TspSolver.java[542:24,542:34]
+    TspSolver.java[254:25,254:34]
+    TspSolver.java[323:10,323:19]
+    TspSolver.java[256:25,256:34]
+    TspSolver.java[390:2,390:11]
+    TspSolver.java[251:20,251:29]
+    Tsp.java[93:50,93:70]
+    TspSolver.java[117:6,117:16]
+    TspSolver.java[134:20,134:27]
+    TspSolver.java[131:9,131:16]
+    TspSolver.java[130:22,130:29]
+================================================================================
+
+================================================================================
+DATA RACE ANALYSIS FOR 'tsp':
+  CLASS WITH MAIN METHOD: Tsp
+  SAMPLING STRATEGY: FULL ANALYSIS
+  CONFLICT CONDITION: FUZZY
+  TIME: 443ms
+  DETECTED RACES: [9]
+    TspSolver.MinTourLen
+    PrioQElement.priority
+    TspSolver.PrioQLast
+    TourElement.prefix_weight
+    PrioQElement.index
+    TourElement.last
+    array access
+    array access
+    array access
+  INVOVLED STATEMENTS: [52]
+    TspSolver.java[170:28,170:38]
+    TspSolver.java[115:2,115:12]
+    TspSolver.java[501:96,501:106]
+    TspSolver.java[526:26,526:36]
+    TspSolver.java[343:69,343:79]
+    TspSolver.java[375:23,375:33]
+    TspSolver.java[106:53,106:63]
+    TspSolver.java[537:26,537:36]
+    TspSolver.java[303:38,303:48]
+    TspSolver.java[104:13,104:23]
+    TspSolver.java[542:24,542:34]
+    TspSolver.java[340:7,340:20]
+    TspSolver.java[326:3,326:16]
+    TspSolver.java[254:40,254:58]
+    TspSolver.java[256:40,256:58]
+    TspSolver.java[256:59,256:90]
+    TspSolver.java[254:59,254:89]
+    TspSolver.java[389:2,389:15]
+    TspSolver.java[338:7,338:20]
+    TspSolver.java[253:30,253:48]
+    TspSolver.java[419:3,419:16]
+    TspSolver.java[417:3,417:16]
+    TspSolver.java[117:6,117:16]
+    TspSolver.java[130:22,130:29]
+    TspSolver.java[131:9,131:16]
+    TspSolver.java[134:20,134:27]
+    TspSolver.java[254:25,254:34]
+    TspSolver.java[323:10,323:19]
+    TspSolver.java[256:25,256:34]
+    TspSolver.java[390:2,390:11]
+    TspSolver.java[251:20,251:29]
+    TspSolver.java[83:2,83:20]
+    TspSolver.java[167:3,167:21]
+    TspSolver.java[478:11,478:29]
+    TspSolver.java[79:6,79:20]
+    TspSolver.java[164:3,164:27]
+    TspSolver.java[163:3,163:29]
+    TspSolver.java[484:15,484:29]
+    TspSolver.java[85:2,85:26]
+    TspSolver.java[117:19,117:26]
+    TspSolver.java[418:3,418:13]
+    TspSolver.java[337:7,337:17]
+    TspSolver.java[388:2,388:12]
+    TspSolver.java[339:7,339:17]
+    TspSolver.java[416:3,416:13]
+    TspSolver.java[252:11,252:26]
+    TspSolver.java[325:3,325:13]
+    TspSolver.java[479:11,479:20]
+    TspSolver.java[258:20,258:35]
+    TspSolver.java[85:16,85:25]
+    TspSolver.java[82:2,82:11]
+    Tsp.java[93:50,93:70]
+================================================================================

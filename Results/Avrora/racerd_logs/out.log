@@ -1,0 +1,50 @@
+
+edu/ucla/cs/compilers/avrora/avrora/gui/GraphNumbers.java:116: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GraphNumbers.chalkboardAndBar()` indirectly reads with synchronization from `this.privateNumbers.total`. Potentially races with unsynchronized write in method `GraphNumbers.internalUpdate()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  114.   
+  115.           // init the scroll bar
+  116. >         updateHorzBar();
+  117.   
+  118.           JPanel innertemppanel = new JPanel();
+
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:321: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.checkWaiters()` writes to field `this.wait_count` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  319.           }
+  320.           // reduce the wait count by the number of waiters in this slot
+  321. >         wait_count -= h.numWaiters;
+  322.           return h;
+  323.       }
+
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:306: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.checkWaiters()` reads without synchronization from `this.goal`. Potentially races with write in method `BarrierSynchronizer.removeNode(...)`.
+ Reporting because this access may occur on a background thread.
+  304.       protected WaitSlot checkWaiters() {
+  305.           // have all threads reached either a meet or a wait?
+  306. >         if (wait_count + meet_count < goal) return null;
+  307.   
+  308.           // are there any waiters at all?
+
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:314: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BarrierSynchronizer.checkWaiters()` writes to field `this.waitSlotList` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  312.           WaitSlot h = waitSlotList;
+  313.           // move the wait list ahead to the next link
+  314. >         waitSlotList = h.next;
+  315.           synchronized (h) {
+  316.               // notify the threads waiting on this wait slot
+
+edu/ucla/cs/compilers/avrora/avrora/sim/clock/BarrierSynchronizer.java:309: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BarrierSynchronizer.checkWaiters()` reads without synchronization from `this.waitSlotList`. Potentially races with write in method `BarrierSynchronizer.removeNode(...)`.
+ Reporting because this access may occur on a background thread.
+  307.   
+  308.           // are there any waiters at all?
+  309. >         if (waitSlotList == null) return null;
+  310.   
+  311.           // there is a ready wait slot, wake those threads waiting on it
+
+
+Found 72 issues (console output truncated to 5, see '/home/ruby/git/cibse-eval/avrora/avrora/src/main/java/infer-out/report.txt' for the full list)
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 72

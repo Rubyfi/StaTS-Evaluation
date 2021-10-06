@@ -1,0 +1,83 @@
+#0 1
+weblech/spider/Spider.java:103: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.isRunning()` reads without synchronization from `this.running`. Potentially races with write in method `Spider.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  101.       public boolean isRunning()
+  102.       {
+  103. >         return running == 0;
+  104.       }
+  105.   
+
+#1 2
+weblech/spider/Spider.java:196: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` reads without synchronization from `this.urlsDownloading`. Potentially races with write in method `Spider.readCheckpoint()`.
+ Reporting because this access may occur on a background thread.
+  194.   					break;
+  195.               }
+  196. >             synchronized(urlsDownloading)
+  197.               {
+  198.                   urlsDownloading.add(nextURL);
+
+#2 Duplicate because of lines 113, 120 3
+weblech/spider/Spider.java:168: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` indirectly reads without synchronization from `this.lastCheckpoint`. Potentially races with write in method `Spider.run()`.
+ Reporting because this access may occur on a background thread.
+  166.           while((queueSize() > 0 || downloadsInProgress > 0) && quit == false)
+  167.           {
+  168. >             checkpointIfNeeded();
+  169.               if(queueSize() == 0 && downloadsInProgress > 0)
+  170.               {
+
+#3 4
+weblech/spider/Spider.java:166: warning: Thread Safety Violation 
+  Read/Write race. Non-private method `Spider.run()` reads without synchronization from `this.downloadsInProgress`. Potentially races with write in method `Spider.run()`.
+ Reporting because this access may occur on a background thread.
+  164.   
+  165.   	    System.err.println("queueSize = "+queueSize());
+  166. >         while((queueSize() > 0 || downloadsInProgress > 0) && quit == false)
+  167.           {
+  168.               checkpointIfNeeded();
+
+#4 False Positive -> ReadCheckpoint called only once on Resume. 54
+weblech/spider/Spider.java:206: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.run()` indirectly reads without synchronization from `this.queue`. Potentially races with write in method `Spider.readCheckpoint()`.
+ Reporting because this access may occur on a background thread.
+  204.                   urlsDownloading.remove(nextURL);
+  205.               }
+  206. >             List newURLs = downloadURL(nextURL, urlGetter, htmlParser);
+  207.   
+  208.               newURLs = filterURLs(newURLs);
+
+#5 1
+weblech/spider/Spider.java:232: warning: Thread Safety Violation
+  Unprotected write. Non-private method `Spider.run()` writes to field `this.running` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  230.           }
+  231.           _logClass.info("Spider thread stopping");
+  232. >         running--;
+  233.       }
+  234.   
+
+#6 1
+weblech/spider/Spider.java:92: warning: Thread Safety Violation
+  Read/Write race. Non-private method `Spider.start()` reads without synchronization from `this.running`. Potentially races with write in method `Spider.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  90.               Thread t = new Thread(this, "Spider-Thread-" + (i + 1));
+  91.               t.start();
+  92. >             running++;
+  93.           }
+  94.       }
+
+#7 False Positive --> start is called only once. 1
+weblech/spider/Spider.java:85: warning: Thread Safety Violation
+  Unprotected write. Non-private method `Spider.start()` writes to field `this.running` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  83.       {
+  84.           quit = false;
+  85. >         running = 0;
+  86.   
+  87.           for(int i = 0; i < config.getSpiderThreads(); i++)
+
+Found 8 issues
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 8

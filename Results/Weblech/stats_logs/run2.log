@@ -1,0 +1,49 @@
+================================================================================
+DATA RACE ANALYSIS FOR 'weblech':
+  CLASS WITH MAIN METHOD: weblech.ui.TextSpider
+  SAMPLING STRATEGY: FULL ANALYSIS
+  CONFLICT CONDITION: EXACT
+  TIME: 961ms
+  DETECTED RACES: [4]
+    weblech.spider.Spider.downloadsInProgress
+    weblech.spider.Spider.lastCheckpoint
+    weblech.spider.Spider.running
+    weblech.spider.Spider.quit
+  INVOVLED STATEMENTS: [11]
+    weblech.spider.Spider.java[192:6,192:25]
+    weblech.spider.Spider.java[169:35,169:54]
+    weblech.spider.Spider.java[166:34,166:53]
+    weblech.spider.Spider.java[228:16,228:35]
+    weblech.spider.Spider.java[120:20,120:34]
+    weblech.spider.Spider.java[113:40,113:54]
+    weblech.spider.Spider.java[232:8,232:15]
+    weblech.spider.Spider.java[98:8,98:12]
+    weblech.spider.Spider.java[166:62,166:66]
+    weblech.spider.Spider.java[92:12,92:19]
+    weblech.spider.Spider.java[103:15,103:22]
+================================================================================
+
+================================================================================
+DATA RACE ANALYSIS FOR 'weblech':
+  CLASS WITH MAIN METHOD: weblech.ui.TextSpider
+  SAMPLING STRATEGY: FULL ANALYSIS
+  CONFLICT CONDITION: FUZZY
+  TIME: 961ms
+  DETECTED RACES: [4]
+    weblech.spider.Spider.downloadsInProgress
+    weblech.spider.Spider.lastCheckpoint
+    weblech.spider.Spider.running
+    weblech.spider.Spider.quit
+  INVOVLED STATEMENTS: [11]
+    weblech.spider.Spider.java[192:6,192:25]
+    weblech.spider.Spider.java[169:35,169:54]
+    weblech.spider.Spider.java[166:34,166:53]
+    weblech.spider.Spider.java[228:16,228:35]
+    weblech.spider.Spider.java[120:20,120:34]
+    weblech.spider.Spider.java[113:40,113:54]
+    weblech.spider.Spider.java[232:8,232:15]
+    weblech.spider.Spider.java[98:8,98:12]
+    weblech.spider.Spider.java[166:62,166:66]
+    weblech.spider.Spider.java[92:12,92:19]
+    weblech.spider.Spider.java[103:15,103:22]
+================================================================================

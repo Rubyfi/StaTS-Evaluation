@@ -1,0 +1,21 @@
+Call Graph Construction Time: 1689054
+INITIAL DETECTION >>>
+!!!!!!!!!!!!!!!!!!!!!!!!!8Run : Node: <src-method: < Source, Lweblech/spider/Spider, run()V >> Context: Everywhere
+cg node is in loop: Node: <src-method: < Source, Lweblech/spider/Spider, start()V >> Context: Everywhere
+mapOfStartNode =========================
+Child thread created by weblech/spider/Spider.start (line 91)
+Child thread created by weblech/spider/Spider.start (line 91)
+Main thread created by weblech/ui/TextSpider.main (line 47)
+mapOfJoinNode =========================
+
+-----race detection start
+-----find shared variables
+-----remove local nodes
+-----perform race detection with Fork-Join
+-----deadlocks detection start
+DETECTION FINISHED
+Total Race Detection Time: 109
+Total Deadlock Detection Time: 10
+-----------ALL BUGGY MEMORY ACCESSES: 12
+Total Bugs: 18
+Total Detection Time: 958

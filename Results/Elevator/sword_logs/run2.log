@@ -1,0 +1,23 @@
+Call Graph Construction Time: 3265
+INITIAL DETECTION >>>
+!!!!!!!!!!!!!!!!!!!!!!!!!8Run : Node: <src-method: < Source, Lelevator/Lift, run()V >> Context: Everywhere
+Join : Node: <src-method: < Source, Lelevator/Lift, run()V >> Context: Everywhere
+Null node obtain from n_loopn_map. 
+mapOfStartNode =========================
+Main thread created by elevator/Elevator.main (line 114)
+Child thread created by elevator/Lift.<init> (line 53)
+mapOfJoinNode =========================
+Child thread joined to elevator/Elevator.waitForLiftsToFinishOperation (line 106)
+
+-----race detection start
+-----find shared variables
+-----remove local nodes
+-----perform race detection with Fork-Join
+-----deadlocks detection start
+Total Race Detection Time: 43
+Total Deadlock Detection Time: 10
+DETECTION FINISHED
+ _________________NO BUGS ________________
+-----------ALL BUGGY MEMORY ACCESSES: 0
+Total Bugs: 0
+Total Detection Time: 903

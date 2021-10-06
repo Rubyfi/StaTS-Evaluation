@@ -1,0 +1,31 @@
+Call Graph Construction Time: 3802
+INITIAL DETECTION >>>
+!!!!!!!!!!!!!!!!!!!!!!!!!8Run : Node: <src-method: < Source, Lsor/sor_first_row_odd, run()V >> Context: Everywhere
+cg node is in loop: Node: <src-method: < Source, Lsor/Sor, main([Ljava/lang/String;)V >> Context: Everywhere
+Run : Node: <src-method: < Source, Lsor/sor_first_row_even, run()V >> Context: Everywhere
+cg node is in loop: Node: <src-method: < Source, Lsor/Sor, main([Ljava/lang/String;)V >> Context: Everywhere
+Join : Node: <src-method: < Source, Lsor/sor_first_row_odd, run()V >> Context: Everywhere
+Join : Node: <src-method: < Source, Lsor/sor_first_row_even, run()V >> Context: Everywhere
+mapOfStartNode =========================
+Main thread created by sor/Sor.main (line 32)
+Child thread created by sor/Sor.main (line 92)
+Child thread created by sor/Sor.main (line 92)
+Child thread created by sor/Sor.main (line 92)
+Child thread created by sor/Sor.main (line 92)
+mapOfJoinNode =========================
+Child thread joined to sor/Sor.main (line 97)
+Child thread joined to sor/Sor.main (line 97)
+Child thread joined to sor/Sor.main (line 97)
+Child thread joined to sor/Sor.main (line 97)
+
+-----race detection start
+-----find shared variables
+-----remove local nodes
+-----perform race detection with Fork-Join
+-----deadlocks detection start
+Total Race Detection Time: 75
+Total Deadlock Detection Time: 11
+DETECTION FINISHED
+-----------ALL BUGGY MEMORY ACCESSES: 8
+Total Bugs: 36
+Total Detection Time: 919

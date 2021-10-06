@@ -1,0 +1,453 @@
+#0 x 1
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:88: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` indirectly reads without synchronization from `state.server.scene.infiniteInstanceList.instances.[_].geometry.builtAccel`. Potentially races with write in method `IrradianceCacheGIEngine.getIrradiance(...)`.
+ Reporting because this access may occur on a background thread.
+  86.               onb.transform(w);
+  87.               Ray r = new Ray(state.getPoint(), w);
+  88. >             ShadingState temp = state.traceFinalGather(r, 0);
+  89.               return temp != null ? getGlobalRadiance(temp).copy().mul((float) Math.PI) : Color.BLACK;
+  90.           }
+
+#1 x 2
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:101: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` reads without synchronization from `this.samples`. Potentially races with write in method `IrradianceCacheGIEngine.init(...)`.
+ Reporting because this access may occur on a background thread.
+   99.               float minR = Float.POSITIVE_INFINITY;
+  100.               Vector3 w = new Vector3();
+  101. >             for (int i = 0; i < samples; i++) {
+  102.                   float xi = (float) state.getRandom(i, 0, samples);
+  103.                   float xj = (float) state.getRandom(i, 1, samples);
+
+#2 x 3
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:119: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` indirectly reads without synchronization from `this.globalPhotonMap`. Potentially races with write in method `IrradianceCacheGIEngine.init(...)`.
+ Reporting because this access may occur on a background thread.
+  117.                       invR += 1.0f / r.getMax();
+  118.                       temp.getInstance().prepareShadingState(temp);
+  119. >                     irr.add(getGlobalRadiance(temp));
+  120.                   }
+  121.               }
+
+#3 x 4
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:114: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` indirectly reads without synchronization from `state.server.scene.infiniteInstanceList.instances.[_].geometry.accel`. Potentially races with write in method `IrradianceCacheGIEngine.getIrradiance(...)`.
+ Reporting because this access may occur on a background thread.
+  112.                   onb.transform(w);
+  113.                   Ray r = new Ray(state.getPoint(), w);
+  114. >                 ShadingState temp = state.traceFinalGather(r, i);
+  115.                   if (temp != null) {
+  116.                       minR = Math.min(r.getMax(), minR);
+
+#4 x 5
+org/sunflow/core/gi/IrradianceCacheGIEngine.java:124: warning: Thread Safety Violation
+  Read/Write race. Non-private method `IrradianceCacheGIEngine.getIrradiance(...)` reads without synchronization from `this.rwl`. Potentially races with write in method `IrradianceCacheGIEngine.init(...)`.
+ Reporting because this access may occur on a background thread.
+  122.               irr.mul((float) Math.PI / samples);
+  123.               invR = samples / invR;
+  124. >             rwl.writeLock().lock();
+  125.               insert(state.getPoint(), state.getNormal(), invR, irr);
+  126.               rwl.writeLock().unlock();
+
+#5 x 6
+org/sunflow/core/photonmap/GlobalPhotonMap.java:346: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GlobalPhotonMap.getRadiance(...)` reads without synchronization from `this.storedPhotons`. Potentially races with write in method `GlobalPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  344.   
+  345.       public Color getRadiance(Point3 p, Vector3 n) {
+  346. >         if (!hasRadiance || (storedPhotons == 0))
+  347.               return Color.BLACK;
+  348.           float px = p.x;
+
+#6 x 7
+org/sunflow/core/photonmap/CausticPhotonMap.java:215: warning: Thread Safety Violation
+  Read/Write race. Non-private method `CausticPhotonMap.getSamples(...)` reads without synchronization from `this.storedPhotons`. Potentially races with write in method `CausticPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  213.   
+  214.       public void getSamples(ShadingState state) {
+  215. >         if (storedPhotons == 0)
+  216.               return;
+  217.           NearestPhotons np = new NearestPhotons(state.getPoint(), gatherNum, gatherRadius * gatherRadius);
+
+#7 x 8
+org/sunflow/core/display/FastDisplay.java:76: warning: Thread Safety Violation
+  Read/Write race. Non-private method `FastDisplay.imageFill(...)` reads without synchronization from `this.image`. Potentially races with write in method `FastDisplay.imageBegin(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  74.   
+  75.       public void imageFill(int x, int y, int w, int h, Color c, float alpha) {
+  76. >         int iw = image.getWidth();
+  77.           int off = x + iw * y;
+  78.           iw -= w;
+
+#8 x 9
+org/sunflow/core/display/FastDisplay.java:82: warning: Thread Safety Violation
+  Read/Write race. Non-private method `FastDisplay.imageFill(...)` reads without synchronization from `this.pixels`. Potentially races with write in method `FastDisplay.imageBegin(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  80.           for (int j = 0, index = 0; j < h; j++, off += iw)
+  81.               for (int i = 0; i < w; i++, index++, off++)
+  82. >                 pixels[off] = rgb;
+  83.       }
+  84.   
+
+#9 x 9
+org/sunflow/core/display/FastDisplay.java:72: warning: Thread Safety Violation
+  Read/Write race. Non-private method `FastDisplay.imageUpdate(...)` reads without synchronization from `this.pixels`. Potentially races with write in method `FastDisplay.imageBegin(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  70.           for (int j = 0, index = 0; j < h; j++, off += iw)
+  71.               for (int i = 0; i < w; i++, index++, off++)
+  72. >                 pixels[off] = 0xFF000000 | data[index].toRGB();
+  73.       }
+  74.   
+
+#10 x 8
+org/sunflow/core/display/FastDisplay.java:67: warning: Thread Safety Violation
+  Read/Write race. Non-private method `FastDisplay.imageUpdate(...)` reads without synchronization from `this.image`. Potentially races with write in method `FastDisplay.imageBegin(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  65.   
+  66.       public void imageUpdate(int x, int y, int w, int h, Color[] data, float[] alpha) {
+  67. >         int iw = image.getWidth();
+  68.           int off = x + iw * y;
+  69.           iw -= w;
+
+#11 x 9
+org/sunflow/core/photonmap/CausticPhotonMap.java:206: warning: Thread Safety Violation
+  Read/Write race. Non-private method `CausticPhotonMap.init()` reads without synchronization from `this.maxPower`. Potentially races with write in method `CausticPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  204.           UI.printInfo(Module.LIGHT, "  * Photons stored:   %d", storedPhotons);
+  205.           UI.printInfo(Module.LIGHT, "  * Photons/estimate: %d", gatherNum);
+  206. >         maxRadius = 1.4f * (float) Math.sqrt(maxPower * gatherNum);
+  207.           UI.printInfo(Module.LIGHT, "  * Estimate radius:  %.3f", gatherRadius);
+  208.           UI.printInfo(Module.LIGHT, "  * Maximum radius:   %.3f", maxRadius);
+
+#12 x 11
+org/sunflow/core/photonmap/CausticPhotonMap.java:201: warning: Thread Safety Violation
+  Read/Write race. Non-private method `CausticPhotonMap.init()` indirectly reads without synchronization from `this.bounds.maximum.x`. Potentially races with write in method `CausticPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  199.           Timer t = new Timer();
+  200.           t.start();
+  201. >         balance();
+  202.           t.end();
+  203.           UI.printInfo(Module.LIGHT, "Caustic photon map:");
+
+#13 x 12
+org/sunflow/core/photonmap/GlobalPhotonMap.java:261: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GlobalPhotonMap.init()` indirectly reads without synchronization from `this.bounds.maximum.x`. Potentially races with write in method `GlobalPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  259.           Timer t = new Timer();
+  260.           t.start();
+  261. >         balance();
+  262.           t.end();
+  263.           UI.taskStop();
+
+#14 x 10
+org/sunflow/core/photonmap/GlobalPhotonMap.java:268: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GlobalPhotonMap.init()` reads without synchronization from `this.maxPower`. Potentially races with write in method `GlobalPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  266.           UI.printInfo(Module.LIGHT, "  * Photons/estimate: %d", numGather);
+  267.           UI.printInfo(Module.LIGHT, "  * Estimate radius:  %.3f", gatherRadius);
+  268. >         maxRadius = 1.4f * (float) Math.sqrt(maxPower * numGather);
+  269.           UI.printInfo(Module.LIGHT, "  * Maximum radius:   %.3f", maxRadius);
+  270.           UI.printInfo(Module.LIGHT, "  * Balancing time:   %s", t.toString());
+
+#15 x 6
+org/sunflow/core/photonmap/GlobalPhotonMap.java:274: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GlobalPhotonMap.init()` indirectly writes to field `this.storedPhotons` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  272.               gatherRadius = maxRadius;
+  273.           t.start();
+  274. >         precomputeRadiance();
+  275.           t.end();
+  276.           UI.printInfo(Module.LIGHT, "  * Precompute time:  %s", t.toString());
+
+#16 ? 13
+org/sunflow/core/photonmap/GridPhotonMap.java:124: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.init()` reads without synchronization from `this.cellHash.[_]`. Potentially races with write in method `GridPhotonMap.getRadiance(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  122.           int cells = 0;
+  123.           for (int i = 0; i < cellHash.length; i++) {
+  124. >             for (PhotonGroup g = cellHash[i]; g != null; g = g.next) {
+  125.                   g.diffuse.mul(1.0f / g.count);
+  126.                   cells++;
+
+#17 x 14
+org/sunflow/core/photonmap/GridPhotonMap.java:121: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.init()` reads without synchronization from `this.cellHash`. Potentially races with write in method `GridPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  119.           UI.printInfo(Module.LIGHT, "Initializing photon grid ...");
+  120.           UI.printInfo(Module.LIGHT, "  * Photon hits:      %d", numStoredPhotons);
+  121. >         UI.printInfo(Module.LIGHT, "  * Final hash size:  %d", cellHash.length);
+  122.           int cells = 0;
+  123.           for (int i = 0; i < cellHash.length; i++) {
+
+#18
+org/sunflow/core/photonmap/GridPhotonMap.java:120: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.init()` reads without synchronization from `this.numStoredPhotons`. Potentially races with write in method `GridPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  118.       public void init() {
+  119.           UI.printInfo(Module.LIGHT, "Initializing photon grid ...");
+  120. >         UI.printInfo(Module.LIGHT, "  * Photon hits:      %d", numStoredPhotons);
+  121.           UI.printInfo(Module.LIGHT, "  * Final hash size:  %d", cellHash.length);
+  122.           int cells = 0;
+
+#19 x6
+org/sunflow/core/photonmap/GlobalPhotonMap.java:282: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GlobalPhotonMap.precomputeRadiance()` reads without synchronization from `this.storedPhotons`. Potentially races with write in method `GlobalPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  280.   
+  281.       public void precomputeRadiance() {
+  282. >         if (storedPhotons == 0)
+  283.               return;
+  284.           // precompute the radiance for all photons that are neither
+
+#20 x 6
+org/sunflow/core/photonmap/GlobalPhotonMap.java:338: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GlobalPhotonMap.precomputeRadiance()` writes to field `this.storedPhotons` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  336.           if (gatherRadius > maxRadius)
+  337.               gatherRadius = maxRadius;
+  338. >         storedPhotons = quadStoredPhotons;
+  339.           halfStoredPhotons = storedPhotons / 2;
+  340.           log2n = (int) Math.ceil(Math.log(storedPhotons) / Math.log(2.0));
+
+#21 x 10
+org/sunflow/core/photonmap/GlobalPhotonMap.java:335: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GlobalPhotonMap.precomputeRadiance()` reads without synchronization from `this.maxPower`. Potentially races with write in method `GlobalPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  333.           // resize photon map to only include irradiance photons
+  334.           numGather /= 4;
+  335. >         maxRadius = 1.4f * (float) Math.sqrt(maxPower * numGather);
+  336.           if (gatherRadius > maxRadius)
+  337.               gatherRadius = maxRadius;
+
+#22 x 7
+org/sunflow/core/photonmap/CausticPhotonMap.java:45: warning: Thread Safety Violation
+  Unprotected write. Non-private method `CausticPhotonMap.prepare(...)` writes to field `this.storedPhotons` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  43.           photonList.add(null);
+  44.           photons = null;
+  45. >         storedPhotons = halfStoredPhotons = 0;
+  46.       }
+  47.   
+
+#23 x 9
+org/sunflow/core/photonmap/CausticPhotonMap.java:40: warning: Thread Safety Violation
+  Unprotected write. Non-private method `CausticPhotonMap.prepare(...)` writes to field `this.maxPower` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  38.           // init
+  39.           bounds = new BoundingBox();
+  40. >         maxPower = 0;
+  41.           maxRadius = 0;
+  42.           photonList = new ArrayList<Photon>();
+
+#24 x 6
+org/sunflow/core/photonmap/GlobalPhotonMap.java:46: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GlobalPhotonMap.prepare(...)` writes to field `this.storedPhotons` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  44.           photonList.add(null);
+  45.           photons = null;
+  46. >         storedPhotons = halfStoredPhotons = 0;
+  47.       }
+  48.   
+
+#25 x 14
+org/sunflow/core/photonmap/GridPhotonMap.java:60: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GridPhotonMap.prepare(...)` writes to field `this.cellHash` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  58.               if (PRIMES[hashPrime] > (numCells / 5))
+  59.                   break;
+  60. >         cellHash = new PhotonGroup[PRIMES[hashPrime]];
+  61.           UI.printInfo(Module.LIGHT, "  * Initial hash size: %d", cellHash.length);
+  62.       }
+
+#26 x 15
+org/sunflow/core/photonmap/GridPhotonMap.java:57: warning: Thread Safety Violation
+  Unprotected write. Non-private method `GridPhotonMap.prepare(...)` writes to field `this.hashPrime` outside of synchronization.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  55.           UI.printInfo(Module.LIGHT, "  * Resolution:  %dx%dx%d", nx, ny, nz);
+  56.           UI.printInfo(Module.LIGHT, "  * Total cells: %d", numCells);
+  57. >         for (hashPrime = 0; hashPrime < PRIMES.length; hashPrime++)
+  58.               if (PRIMES[hashPrime] > (numCells / 5))
+  59.                   break;
+
+#27 x 14
+org/sunflow/core/photonmap/GridPhotonMap.java:61: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.prepare(...)` reads without synchronization from `this.cellHash`. Potentially races with write in method `GridPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  59.                   break;
+  60.           cellHash = new PhotonGroup[PRIMES[hashPrime]];
+  61. >         UI.printInfo(Module.LIGHT, "  * Initial hash size: %d", cellHash.length);
+  62.       }
+  63.   
+
+#28 x 16
+org/sunflow/core/renderer/BucketRenderer.java:196: warning: Thread Safety Violation
+  Unprotected write. Non-private method `BucketRenderer$BucketThread.run()` indirectly writes to field `this.istate.current` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  194.                       bucketCounter += 2;
+  195.                   }
+  196. >                 renderBucket(display, bx, by, threadID, istate);
+  197.                   if (UI.taskCanceled())
+  198.                       return;
+
+#29 4
+org/sunflow/core/LightServer.java:170: warning: Thread Safety Violation
+  Read/Write race. Non-private method `LightServer$1.run()` indirectly reads without synchronization from `this.this$0.scene.infiniteInstanceList.instances.[_].geometry.accel`. Potentially races with write in method `LightServer$1.run()`.
+ Reporting because this access may occur on a background thread.
+  168.                           power.mul(scale);
+  169.                           Ray r = new Ray(pt, dir);
+  170. >                         scene.trace(r, istate);
+  171.                           if (istate.hit())
+  172.                               shadePhoton(ShadingState.createPhotonState(r, istate, qmcI, map, LightServer.this), power);
+
+#30
+org/sunflow/core/renderer/MultipassRenderer.java:127: warning: Thread Safety Violation
+  Unprotected write. Non-private method `MultipassRenderer$BucketThread.run()` indirectly writes to field `this.cache.depth` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  125.                       bucketCounter += 2;
+  126.                   }
+  127. >                 renderBucket(display, bx, by, threadID, istate, cache);
+  128.               }
+  129.           }
+
+#31 x 17
+org/sunflow/core/renderer/ProgressiveRenderer.java:82: warning: Thread Safety Violation
+  Unprotected write. Non-private method `ProgressiveRenderer$SmallBucketThread.run()` indirectly writes to field `this.istate.current` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  80.           public void run() {
+  81.               while (true) {
+  82. >                 int n = progressiveRenderNext(istate);
+  83.                   synchronized (ProgressiveRenderer.this) {
+  84.                       if (counter >= counterMax)
+
+#32 x 18
+org/sunflow/core/renderer/SimpleRenderer.java:72: warning: Thread Safety Violation
+  Unprotected write. Non-private method `SimpleRenderer$BucketThread.run()` indirectly writes to field `this.istate.current` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  70.                       bucketCounter++;
+  71.                   }
+  72. >                 renderBucket(bx, by, istate);
+  73.               }
+  74.           }
+
+#33 x 9
+org/sunflow/system/ImagePanel.java:101: warning: Thread Safety Violation
+  Read/Write race. Non-private method `ImagePanel.save(...)` reads without synchronization from `this.image`. Potentially races with write in method `ImagePanel.imageBegin(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+   99.           // Bitmap.save(image, filename);
+  100.           try {
+  101. >             ImageIO.write(image, "png", new File(filename));
+  102.           } catch (IOException e) {
+  103.               e.printStackTrace();
+
+#34 x 19
+org/sunflow/core/photonmap/GridPhotonMap.java:65: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.size()` reads without synchronization from `this.numStoredPhotons`. Potentially races with write in method `GridPhotonMap.store(...)`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  63.   
+  64.       public int size() {
+  65. >         return numStoredPhotons;
+  66.       }
+  67.   
+
+#35 x 20
+org/sunflow/core/photonmap/GridPhotonMap.java:77: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.store(...)` reads without synchronization from `this.nx`. Potentially races with write in method `GridPhotonMap.prepare(...)`.
+ Reporting because this access may occur on a background thread.
+  75.               return;
+  76.           Vector3 ext = bounds.getExtents();
+  77. >         int ix = (int) (((pt.x - bounds.getMinimum().x) * nx) / ext.x);
+  78.           int iy = (int) (((pt.y - bounds.getMinimum().y) * ny) / ext.y);
+  79.           int iz = (int) (((pt.z - bounds.getMinimum().z) * nz) / ext.z);
+
+#36 x 21
+org/sunflow/core/photonmap/GridPhotonMap.java:78: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.store(...)` reads without synchronization from `this.ny`. Potentially races with write in method `GridPhotonMap.prepare(...)`.
+ Reporting because this access may occur on a background thread.
+  76.           Vector3 ext = bounds.getExtents();
+  77.           int ix = (int) (((pt.x - bounds.getMinimum().x) * nx) / ext.x);
+  78. >         int iy = (int) (((pt.y - bounds.getMinimum().y) * ny) / ext.y);
+  79.           int iz = (int) (((pt.z - bounds.getMinimum().z) * nz) / ext.z);
+  80.           ix = MathUtils.clamp(ix, 0, nx - 1);
+
+#37 x 22
+org/sunflow/core/photonmap/GridPhotonMap.java:74: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.store(...)` reads without synchronization from `this.bounds`. Potentially races with write in method `GridPhotonMap.prepare(...)`.
+ Reporting because this access may occur on a background thread.
+  72.           Point3 pt = state.getPoint();
+  73.           // outside grid bounds ?
+  74. >         if (!bounds.contains(pt))
+  75.               return;
+  76.           Vector3 ext = bounds.getExtents();
+
+#38 x 23
+org/sunflow/core/photonmap/GridPhotonMap.java:79: warning: Thread Safety Violation
+  Read/Write race. Non-private method `GridPhotonMap.store(...)` reads without synchronization from `this.nz`. Potentially races with write in method `GridPhotonMap.prepare(...)`.
+ Reporting because this access may occur on a background thread.
+  77.           int ix = (int) (((pt.x - bounds.getMinimum().x) * nx) / ext.x);
+  78.           int iy = (int) (((pt.y - bounds.getMinimum().y) * ny) / ext.y);
+  79. >         int iz = (int) (((pt.z - bounds.getMinimum().z) * nz) / ext.z);
+  80.           ix = MathUtils.clamp(ix, 0, nx - 1);
+  81.           iy = MathUtils.clamp(iy, 0, ny - 1);
+
+#39 x 24
+org/sunflow/core/gi/InstantGI.java:151: warning: Thread Safety Violation
+  Unprotected write. Non-private method `InstantGI$PointLightStore.store(...)` indirectly writes to field `state.basis.w.x` outside of synchronization.
+ Reporting because this access may occur on a background thread.
+  149.   
+  150.           public void store(ShadingState state, Vector3 dir, Color power, Color diffuse) {
+  151. >             state.faceforward();
+  152.               PointLight vpl = new PointLight();
+  153.               vpl.p = state.getPoint();
+
+#40 x 25
+org/sunflow/core/renderer/BucketRenderer.java:203: warning: Thread Safety Violation
+  Read/Write race. Non-private method `BucketRenderer$BucketThread.updateStats()` indirectly reads without synchronization from `this.istate.numEyeRays`. Potentially races with write in method `BucketRenderer$BucketThread.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  201.   
+  202.           void updateStats() {
+  203. >             scene.accumulateStats(istate);
+  204.           }
+  205.       }
+
+#41 x 26
+org/sunflow/core/renderer/MultipassRenderer.java:134: warning: Thread Safety Violation
+  Read/Write race. Non-private method `MultipassRenderer$BucketThread.updateStats()` indirectly reads without synchronization from `this.cache.hits`. Potentially races with write in method `MultipassRenderer$BucketThread.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  132.               scene.accumulateStats(istate);
+  133.               if (shadingCache)
+  134. >                 scene.accumulateStats(cache);
+  135.           }
+  136.       }
+
+#42 x 27
+org/sunflow/core/renderer/MultipassRenderer.java:132: warning: Thread Safety Violation
+  Read/Write race. Non-private method `MultipassRenderer$BucketThread.updateStats()` indirectly reads without synchronization from `this.istate.numEyeRays`. Potentially races with write in method `MultipassRenderer$BucketThread.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  130.   
+  131.           void updateStats() {
+  132. >             scene.accumulateStats(istate);
+  133.               if (shadingCache)
+  134.                   scene.accumulateStats(cache);
+
+#43 x 28
+org/sunflow/core/renderer/ProgressiveRenderer.java:95: warning: Thread Safety Violation
+  Read/Write race. Non-private method `ProgressiveRenderer$SmallBucketThread.updateStats()` indirectly reads without synchronization from `this.istate.numEyeRays`. Potentially races with write in method `ProgressiveRenderer$SmallBucketThread.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  93.   
+  94.           void updateStats() {
+  95. >             scene.accumulateStats(istate);
+  96.           }
+  97.       }
+
+#44 x 29
+org/sunflow/core/renderer/SimpleRenderer.java:77: warning: Thread Safety Violation
+  Read/Write race. Non-private method `SimpleRenderer$BucketThread.updateStats()` indirectly reads without synchronization from `this.istate.numEyeRays`. Potentially races with write in method `SimpleRenderer$BucketThread.run()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  75.   
+  76.           void updateStats() {
+  77. >             scene.accumulateStats(istate);
+  78.           }
+  79.       }
+
+Found 45 issues
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 45

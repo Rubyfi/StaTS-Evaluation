@@ -1,0 +1,41 @@
+
+TspSolver.java:251: warning: Thread Safety Violation
+  Read/Write race. Non-private method `TspSolver.DumpPrioQ()` reads without synchronization from `TspSolver.PrioQLast`. Potentially races with write in method `TspSolver.find_solvable_tour()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  249.   	
+  250.   	System.out.println("DumpPrioQ");
+  251. > 	for (pq = 1; pq <= PrioQLast; pq++) {
+  252.   	    ind = PrioQ[pq].index;
+  253.   	    System.out.print(ind+"("+PrioQ[pq].priority+"):\t");
+
+TspSolver.java:506: warning: Thread Safety Violation
+  Read/Write race. Non-private method `TspSolver.recursive_solve(...)` indirectly reads without synchronization from `TspSolver.MinTourLen`. Potentially races with write in method `TspSolver.find_solvable_tour()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  504.   	}
+  505.   	
+  506. > 	visit_nodes(Path[PathLen-1]);
+  507.       }
+  508.   
+
+TspSolver.java:104: warning: Thread Safety Violation
+  Read/Write race. Non-private method `TspSolver.set_best(...)` reads without synchronization from `TspSolver.MinTourLen`. Potentially races with write in method `TspSolver.find_solvable_tour()`.
+ Reporting because this access may occur on a background thread.
+  102.        */
+  103.       static void set_best(int best, int[] path) {
+  104. > 	if (best >= MinTourLen) {
+  105.   	    if (debug) 
+  106.   		System.out.println("set_best: " + best + " <-> " + MinTourLen);
+
+TspSolver.java:526: warning: Thread Safety Violation
+  Read/Write race. Non-private method `TspSolver.visit_nodes(...)` reads without synchronization from `TspSolver.MinTourLen`. Potentially races with write in method `TspSolver.find_solvable_tour()`.
+ Reporting because another access to the same memory occurs on a background thread, although this access may not.
+  524.   	    if ((dist = weights[from][i]) == 0) 
+  525.   		continue; /* Not connected. */
+  526. > 	    if (CurDist + dist > MinTourLen) 
+  527.   		continue; /* Path too long. */
+  528.   	    
+
+
+Found 4 issues
+                        Issue Type(ISSUED_TYPE_ID): #
+  Thread Safety Violation(THREAD_SAFETY_VIOLATION): 4

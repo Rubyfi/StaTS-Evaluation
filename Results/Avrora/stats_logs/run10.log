@@ -1,0 +1,84 @@
+Duration: 16095 ms
+abstract thread count: 2
+abstract object count: 2525
+statistics:
+  numOfFiles: 494
+  numOfClasses: 1855
+  numOfMethods: 8995
+  
+  Precise 8/19
+  Lenient 8/19
+  
+================================================================================
+DATA RACE ANALYSIS FOR 'avrora':
+  CLASS WITH MAIN METHOD: edu.ucla.cs.compilers.avrora.avrora.Main
+  SAMPLING STRATEGY: LIMIT TO 3
+  CONFLICT CONDITION: EXACT
+  TIME: 16095ms
+  DETECTED RACES: [8]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.newEdgeCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.running
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.newRetCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.numElems
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.edgeCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.numSets
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.exploredCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.frontierCount
+  INVOVLED STATEMENTS: [19]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[283:21,283:33]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[381:12,381:24]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[549:8,549:20]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[245:23,245:39]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[248:25,248:41]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[178:8,178:15]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[170:12,170:19]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[282:21,282:32]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[366:12,366:23]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[290:8,290:16]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[279:22,279:30]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[220:15,220:24]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[112:8,112:17]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[291:8,291:15]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[278:21,278:28]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[224:15,224:28]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[183:12,183:25]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[216:15,216:28]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[135:8,135:21]
+================================================================================
+
+================================================================================
+DATA RACE ANALYSIS FOR 'avrora':
+  CLASS WITH MAIN METHOD: edu.ucla.cs.compilers.avrora.avrora.Main
+  SAMPLING STRATEGY: LIMIT TO 3
+  CONFLICT CONDITION: FUZZY
+  TIME: 16095ms
+  DETECTED RACES: [8]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.newEdgeCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.running
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.newRetCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.numElems
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.edgeCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.numSets
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.exploredCount
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.frontierCount
+  INVOVLED STATEMENTS: [19]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[283:21,283:33]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[381:12,381:24]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[549:8,549:20]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[245:23,245:39]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[248:25,248:41]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[178:8,178:15]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[170:12,170:19]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[282:21,282:32]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[366:12,366:23]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[290:8,290:16]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[279:22,279:30]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[220:15,220:24]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[112:8,112:17]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[291:8,291:15]
+    edu.ucla.cs.compilers.avrora.avrora.stack.Analyzer.java[278:21,278:28]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[224:15,224:28]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[183:12,183:25]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[216:15,216:28]
+    edu.ucla.cs.compilers.avrora.avrora.stack.StateTransitionGraph.java[135:8,135:21]
+================================================================================
